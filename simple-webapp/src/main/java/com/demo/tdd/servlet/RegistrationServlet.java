@@ -46,7 +46,7 @@ public class RegistrationServlet extends HttpServlet {
 		JSONObject firstNameValidationJson = validateFirstName();
 		responseJson.put("First Name", firstNameValidationJson);
 
-		JSONObject lastNameValidationJson = validateLastName();
+		JSONObject lastNameValidationJson = validateLastName(lastName);
 		responseJson.put("Last Name", lastNameValidationJson);
 
 		JSONObject dateOfBirthValidationJson = validateDOB();
@@ -83,10 +83,16 @@ public class RegistrationServlet extends HttpServlet {
 		return validationJson;
 	}
 
-	private JSONObject validateLastName() {
+	private JSONObject validateLastName(String lastName) {
 		JSONObject validationJson = new JSONObject();
-		validationJson.put("status", "Failed");
-		validationJson.put("message", "No implementation");
+		int length = lastName.length();
+		if (length < 3 || length > 16) {
+			validationJson.put("status", "Failed");
+			validationJson.put("message", "Length must be between 3 and 16 characters.");
+
+		} else {
+			validationJson.put("status", "Success");
+		}
 		return validationJson;
 	}
 
