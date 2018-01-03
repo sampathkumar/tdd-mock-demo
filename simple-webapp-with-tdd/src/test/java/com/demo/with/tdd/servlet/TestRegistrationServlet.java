@@ -55,4 +55,62 @@ public class TestRegistrationServlet {
 				lastNameValidateResponse.get("message"),
 				"Length must be more than 3 characters and less than 16 characters");
 	}
+
+	@Test
+	public void validateLastNameGreaterThan16Chars() throws IOException, ServletException {
+		HttpServletRequest mockRequest = Mockito.mock(HttpServletRequest.class);
+
+		String lastNameLessThan3Chars = "thisisreallylongnamewhichisgreaterthanlimit";
+		Mockito.when(mockRequest.getParameter("LastName")).thenReturn(lastNameLessThan3Chars);
+
+		HttpServletResponse mockResponse = Mockito.mock(HttpServletResponse.class);
+		StringWriter stringWriter = new StringWriter();
+
+		Mockito.when(mockResponse.getWriter()).thenReturn(new PrintWriter(stringWriter, true));
+
+		registrationServlet.doPost(mockRequest, mockResponse);
+
+		String writtenResponse = stringWriter.toString();
+		JSONObject responseJson = new JSONObject(writtenResponse);
+
+		Assert.assertTrue("Response json must contain key Last Name", responseJson.has("Last Name"));
+		JSONObject lastNameValidateResponse = responseJson.getJSONObject("Last Name");
+		Assert.assertTrue("Field validation response json must contain key: status",
+				lastNameValidateResponse.has("status"));
+		Assert.assertEquals("Last name validation must fail as length is less than 3 chars",
+				lastNameValidateResponse.get("status"), "Failure");
+		Assert.assertTrue("Last name validation must have message with reason for failure",
+				lastNameValidateResponse.has("message"));
+		Assert.assertEquals("Last name validation message msut specify length is less than 3 chars",
+				lastNameValidateResponse.get("message"),
+				"Length must be more than 3 characters and less than 16 characters");
+	}
+
+	@Test
+	public void validateLastNamebetween3And16Chars() throws IOException, ServletException {
+		HttpServletRequest mockRequest = Mockito.mock(HttpServletRequest.class);
+
+		String lastNameLessThan3Chars = "avalidlastname";
+		Mockito.when(mockRequest.getParameter("LastName")).thenReturn(lastNameLessThan3Chars);
+
+		HttpServletResponse mockResponse = Mockito.mock(HttpServletResponse.class);
+		StringWriter stringWriter = new StringWriter();
+
+		Mockito.when(mockResponse.getWriter()).thenReturn(new PrintWriter(stringWriter, true));
+
+		registrationServlet.doPost(mockRequest, mockResponse);
+
+		String writtenResponse = stringWriter.toString();
+		JSONObject responseJson = new JSONObject(writtenResponse);
+
+		Assert.assertTrue("Response json must contain key Last Name", responseJson.has("Last Name"));
+		JSONObject lastNameValidateResponse = responseJson.getJSONObject("Last Name");
+		Assert.assertTrue("Field validation response json must contain key: status",
+				lastNameValidateResponse.has("status"));
+		Assert.assertEquals("Last name validation must succeed",
+				lastNameValidateResponse.get("status"), "Success");
+		Assert.assertFalse("Successful validation should not have message",
+				lastNameValidateResponse.has("message"));
+	}
+
 }
