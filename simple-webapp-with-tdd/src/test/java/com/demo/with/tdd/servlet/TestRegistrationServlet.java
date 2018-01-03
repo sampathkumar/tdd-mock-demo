@@ -50,7 +50,7 @@ public class TestRegistrationServlet {
 		Assert.assertEquals("Last name validation must fail as length is less than 3 chars",
 				lastNameValidateResponse.get("status"), "Failure");
 		Assert.assertTrue("Last name validation must have message with reason for failure",
-				lastNameValidateResponse.has("mesage"));
+				lastNameValidateResponse.has("message"));
 		Assert.assertEquals("Last name validation message msut specify length is less than 3 chars",
 				lastNameValidateResponse.get("message"),
 				"Length must be more than 3 characters and less than 16 characters");
