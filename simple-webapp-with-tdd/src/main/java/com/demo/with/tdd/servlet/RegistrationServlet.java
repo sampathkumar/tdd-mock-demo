@@ -29,8 +29,13 @@ public class RegistrationServlet extends HttpServlet {
 
 	private JSONObject validateLastName(String lastName) {
 		JSONObject responseJson = new JSONObject();
-		responseJson.put("status", "Failure");
-		responseJson.put("message", "No implementation");
+		int length = lastName.length();
+		if (length < 3 || length > 16) {
+			responseJson.put("status", "Failure");
+			responseJson.put("message", "Length must be more than 3 characters and less than 16 characters");
+		} else {
+			responseJson.put("status", "Success");
+		}
 		return responseJson;
 	}
 }
