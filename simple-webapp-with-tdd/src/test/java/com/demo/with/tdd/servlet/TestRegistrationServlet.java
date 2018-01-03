@@ -1,8 +1,18 @@
 package com.demo.with.tdd.servlet;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 public class TestRegistrationServlet {
 
@@ -17,7 +27,23 @@ public class TestRegistrationServlet {
 	}
 
 	@Test
-	public void validateLastName() {
-		Assert.fail("No implementation yet.");
+	public void validateLastName() throws IOException, ServletException {
+		HttpServletRequest mockRequest = Mockito.mock(HttpServletRequest.class);
+
+		String lastNameLessThan3Chars = "ab";
+		Mockito.when(mockRequest.getParameter("LastName")).thenReturn(lastNameLessThan3Chars);
+
+		HttpServletResponse mockResponse = Mockito.mock(HttpServletResponse.class);
+		StringWriter stringWriter = new StringWriter();
+
+		Mockito.when(mockResponse.getWriter()).thenReturn(new PrintWriter(stringWriter, true));
+
+		registrationServlet.doPost(mockRequest, mockResponse);
+
+		String writtenResponse = stringWriter.toString();
+		JSONObject responseJson = new JSONObject(writtenResponse);
+
+		Assert.assertTrue("Response json must contain key Last Name", responseJson.has("Last Name"));
+
 	}
 }
