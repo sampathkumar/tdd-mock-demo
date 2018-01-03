@@ -1,5 +1,6 @@
 package com.demo.with.tdd.servlet;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,5 +18,6 @@ public class TestRegistrationServlet {
 
 	@Test
 	public void validateLastName() {
+		Assert.fail("No implementation yet.");
 	}
 }
