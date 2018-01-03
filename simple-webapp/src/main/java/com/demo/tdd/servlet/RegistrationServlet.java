@@ -2,6 +2,7 @@ package com.demo.tdd.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -39,15 +40,68 @@ public class RegistrationServlet extends HttpServlet {
 
 		JSONObject responseJson = new JSONObject();
 
-		responseJson.put("User Name", userName);
-		responseJson.put("First Name", firstName);
-		responseJson.put("Last Name", lastName);
-		responseJson.put("DOB", dateOfBirth);
-		responseJson.put("Email", email);
-		responseJson.put("Phone Number", phoneNum);
+		JSONObject userNameValidationJson = validateUserName();
+		responseJson.put("User Name", userNameValidationJson);
+
+		JSONObject firstNameValidationJson = validateFirstName();
+		responseJson.put("First Name", firstNameValidationJson);
+
+		JSONObject lastNameValidationJson = validateLastName();
+		responseJson.put("Last Name", lastNameValidationJson);
+
+		JSONObject dateOfBirthValidationJson = validateDOB();
+		responseJson.put("DOB", dateOfBirthValidationJson);
+
+		JSONObject emailValidationJson = validateEmail();
+		responseJson.put("Email", emailValidationJson);
+
+		JSONObject phoneNumValidationJson = validatePhoneNum();
+		responseJson.put("Phone Number", phoneNumValidationJson);
 
 		PrintWriter outputWriter = response.getWriter();
 		outputWriter.write(responseJson.toString());
+	}
+
+	private JSONObject validatePhoneNum() {
+		JSONObject validationJson = new JSONObject();
+		validationJson.put("status", "Failed");
+		validationJson.put("message", "No implementation");
+		return validationJson;
+	}
+
+	private JSONObject validateEmail() {
+		JSONObject validationJson = new JSONObject();
+		validationJson.put("status", "Failed");
+		validationJson.put("message", "No implementation");
+		return validationJson;
+	}
+
+	private JSONObject validateDOB() {
+		JSONObject validationJson = new JSONObject();
+		validationJson.put("status", "Failed");
+		validationJson.put("message", "No implementation");
+		return validationJson;
+	}
+
+	private JSONObject validateLastName() {
+		JSONObject validationJson = new JSONObject();
+		validationJson.put("status", "Failed");
+		validationJson.put("message", "No implementation");
+		return validationJson;
+	}
+
+	private JSONObject validateFirstName() {
+		JSONObject validationJson = new JSONObject();
+		validationJson.put("status", "Failed");
+		validationJson.put("message", "No implementation");
+		return validationJson;
+	}
+
+	private JSONObject validateUserName() {
+		JSONObject validationJson = new JSONObject();
+		validationJson.put("status", "Failed");
+		validationJson.put("message", "No implementation");
+		return validationJson;
 	}
 
 }
