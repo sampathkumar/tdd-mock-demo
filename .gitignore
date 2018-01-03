@@ -2,3 +2,7 @@ simple-webapp/.classpath
 simple-webapp/.gitignore
 simple-webapp/.project
 simple-webapp/.settings/
+simple-webapp-with-tdd/.classpath
+simple-webapp-with-tdd/.gitignore
+simple-webapp-with-tdd/.project
+simple-webapp-with-tdd/.settings/
